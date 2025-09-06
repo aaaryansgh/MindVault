@@ -79,12 +79,12 @@ app.delete("/api/v1/content/:id",UserAuth,async(req,res)=>{
     res.status(200).json({message:"Content deleted successfully"});
 })
 
-app.post("/api/v1/brain/share",(req,res)=>{
+// app.post("/api/v1/brain/share",(req,res)=>{
 
-})
-app.get("/api/v1/brain/share/:id",(req,res)=>{
+// })
+// app.get("/api/v1/brain/share/:id",(req,res)=>{
 
-})
+// })
 
 connectDB().then(()=>{
     app.listen(3000,()=>{console.log("Server is running on port 3000");
