@@ -1,12 +1,13 @@
 import { Button } from './components/Button'
 import { Plusicon } from './Icons/Plusicon';
+import { Shareicon } from './Icons/Shareicon';
 function App() {
   return (
-    <div>
-      <Button variant="primary" size="lg" onClick={()=>{console.log("Button clicked");
-      }} text={"Primary button"} startIcon={<Plusicon size='lg' />} />
-      <Button variant="secondary" size="lg" onClick={()=>{console.log("Button clicked");
-      }} text={"Secondary button"} />
+    <div className='flex justify-end'>
+      <Button variant="primary" size="md" onClick={()=>{console.log("Button clicked");
+      }} text={"Add new"} startIcon={<Plusicon size='md'/>} />
+      <Button variant="secondary" size="md" onClick={()=>{console.log("Button clicked");
+      }} text={"Share"} startIcon={<Shareicon size='md' />} />
     </div>
   )
 }
