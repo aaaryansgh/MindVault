@@ -6,6 +6,8 @@ import User from './models/User.js';
 import { UserAuth } from './middleware/auth.js';
 import Content from './models/Content.js';
 import cookieParser from 'cookie-parser';
+import Link from './models/Link.js';
+import { random } from './utils.js';
 const app=express();
 
 
@@ -79,12 +81,49 @@ app.delete("/api/v1/content/:id",UserAuth,async(req,res)=>{
     res.status(200).json({message:"Content deleted successfully"});
 })
 
-// app.post("/api/v1/brain/share",(req,res)=>{
+app.post("/api/v1/brain/share",UserAuth,async(req,res)=>{
+    const{share}=req.body;
+    //@ts-ignore
+    const user=req.user;
+    let hash=null;
+    if(share){
+        const existingLink=await Link.findOne({
+            userId:user._id
+        })
+        if(existingLink){
+            res.json({hash:existingLink.hash})
+            return;
+        }
+        hash=random(15);
+        await Link.create({
+            userId:user._id,
+            hash:hash
+        })
+    }else{
+       await Link.deleteOne({userId:user})
+       res.json({message:"link has been removed"})
+    }
+    res.json({message:"share/"+hash})
 
-// })
-// app.get("/api/v1/brain/share/:id",(req,res)=>{
-
-// })
+})
+app.get("/api/v1/brain/:shareLink",async(req,res)=>{
+    //@ts-ignore
+    const hash=req.params.shareLink;
+    const link=await Link.findOne({hash:hash});
+    if(!link){
+        res.status(411).json({message:"Incorrect link"});
+    }
+    const content=await Content.find({
+        userId:link?.userId
+    })
+    const user=await User.findOne({
+        _id:link?.userId
+    })
+    res.json({
+        username:user?.username,
+        contents:content
+    })
+})
 
 connectDB().then(()=>{
     app.listen(3000,()=>{console.log("Server is running on port 3000");
