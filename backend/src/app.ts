@@ -50,10 +50,11 @@ app.post("/api/v1/login",async(req,res)=>{
 })
 
 app.post("/api/v1/content",UserAuth,async(req,res)=>{
-    const{title,link}=req.body;
+    const{title,link,type}=req.body;
     //@ts-ignore
     const user=req.user;
     const contents=await new Content({
+        type,
         title,
         link,
         userId:user._id,

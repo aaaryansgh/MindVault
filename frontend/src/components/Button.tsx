@@ -11,7 +11,7 @@ interface ButtonProps{
 }
 
 const variantStyle={
-    primary:"bg-black text-white",
+    primary:"bg-pink-900 text-white",
     secondary:"bg-gray-50 text-black"
 }
 const sizeStyle={
@@ -19,10 +19,10 @@ const sizeStyle={
     md:"py-2 px-4 text-md",
     lg:"py-4 px-6 text-lg"
 }
-const defaultStyle="rounded-md p-2 m-3 cursor-pointer flex"
+const defaultStyle="rounded-md p-2 m-3 cursor-pointer flex items-center"
 export const Button=(props:ButtonProps)=>{
     return <button className={`${variantStyle[props.variant]} ${defaultStyle} ${sizeStyle[props.size]}`}>
-        {props.startIcon?<div className="flex items-center px-1.5" >{props.startIcon}</div>:null}{props.text}
+        {props.startIcon?<div className="px-2" >{props.startIcon}</div>:null}{props.text}
         </button>
 }
 
