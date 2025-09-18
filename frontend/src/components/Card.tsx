@@ -9,7 +9,7 @@ interface CardProps{
 export const Card=(props:CardProps)=>{
     return(
         <div>
-            <div className="p-3 bg-white text-black rounded-md shadow-md border border-gray-200 max-w-76">
+            <div className="p-2 bg-white text-black rounded-md shadow-md border border-gray-200 max-w-76">
                 <div className="flex justify-between items-center">
                     <div className="flex font-bold">
                         {props.title}
@@ -18,7 +18,6 @@ export const Card=(props:CardProps)=>{
                         <a className=" font-extrabold cursor-pointer" href={props.link} target="_blank">
                             <Shareicon size="md" />
                         </a>
-                        <Shareicon size="md" />
                     </div>
                 </div>
                 <div className="pt-3">
