@@ -13,19 +13,15 @@ export function ContentModal({open,onClose}){
     const titleRef=useRef<HTMLInputElement>(null);
     const linkRef=useRef<HTMLInputElement>(null);
     const [type,setType]=useState(contentType.Youtube)
-    const [isAdded,setAdded]=useState(false);
     async function addContent(){
         const title=titleRef.current?.value;
         const link=linkRef.current?.value;
-        const response=await axios.post(`${BACKEND_URL}/api/v1/content`,{
+        await axios.post(`${BACKEND_URL}/api/v1/content`,{
             type,
             title,
             link
         },{withCredentials:true})
-        if(response){
-            setAdded(true);
-        }
-
+        onClose();
     }
     return <div>
         {open&&<div className="w-screen h-screen bg-slate-500 opacity-95 fixed top-0 left-0  flex justify-center">
@@ -40,8 +36,7 @@ export function ContentModal({open,onClose}){
                             <Button size="md" text="youtube" variant={type===contentType.Youtube?"ternary":"secondary"} onClick={()=>{setType(contentType.Youtube)}} />
                             <Button size="md" text="tweet" variant={type===contentType.Tweet?"ternary":"secondary"} onClick={()=>{setType(contentType.Tweet)}} />
                         </div>
-                        {isAdded&&<div className="flex justify-center"><Button size="md" variant="success" text="Content Added!"/></div>}
-                        {!isAdded&&<div className="flex justify-center"><Button size="md" variant="primary" text="Submit" onClick={addContent}/></div>}
+                        <div className="flex justify-center"><Button size="md" variant="primary" text="Submit" onClick={addContent}/></div>
                     </span>
                 </div>
             </div>}
